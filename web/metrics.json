@@ -1,0 +1,210 @@
+{
+  "schema": 1,
+  "dataset": {
+    "name": "Social Network Ads (teaching dataset)",
+    "rows": 400,
+    "positives": 143,
+    "range": {
+      "age": [
+        18.0,
+        60.0
+      ],
+      "salary": [
+        15000.0,
+        150000.0
+      ]
+    }
+  },
+  "cv": {
+    "method": "RepeatedStratifiedKFold",
+    "n_splits": 10,
+    "n_repeats": 5,
+    "seed": 0
+  },
+  "selected": "logistic_poly",
+  "reason": "Logistic regression, degree 2 features has the highest cross-validated ROC AUC (0.956).",
+  "models": [
+    {
+      "name": "logistic",
+      "label": "Logistic regression",
+      "roc_auc": 0.9233764102564102,
+      "roc_auc_std": 0.040082640119088894,
+      "f1": 0.7536986804779715,
+      "f1_std": 0.10178917350795365,
+      "precision": 0.841650173871536,
+      "precision_std": 0.10547378611359656,
+      "recall": 0.6983809523809522,
+      "recall_std": 0.14356841977420587,
+      "accuracy": 0.8415,
+      "accuracy_std": 0.06095285063063088,
+      "folds": 50
+    },
+    {
+      "name": "logistic_poly",
+      "label": "Logistic regression, degree 2 features",
+      "roc_auc": 0.95600673992674,
+      "roc_auc_std": 0.03098133113784132,
+      "f1": 0.8618735015345139,
+      "f1_std": 0.05892311852319321,
+      "precision": 0.8620800626102484,
+      "precision_std": 0.08346633289687984,
+      "recall": 0.8695238095238095,
+      "recall_std": 0.08039020483873398,
+      "accuracy": 0.9005,
+      "accuracy_std": 0.042863154340295584,
+      "folds": 50
+    },
+    {
+      "name": "knn",
+      "label": "K-nearest neighbours (k tuned)",
+      "roc_auc": 0.9555380952380952,
+      "roc_auc_std": 0.03385704494110491,
+      "f1": 0.8669840031327795,
+      "f1_std": 0.06101092620470485,
+      "precision": 0.8656887850711381,
+      "precision_std": 0.08318551106055888,
+      "recall": 0.8753333333333333,
+      "recall_std": 0.07903436492439393,
+      "accuracy": 0.904,
+      "accuracy_std": 0.04482186966202994,
+      "folds": 50
+    },
+    {
+      "name": "svm_rbf",
+      "label": "SVM, RBF kernel",
+      "roc_auc": 0.9530316483516483,
+      "roc_auc_std": 0.03744916398808469,
+      "f1": 0.8801124213313737,
+      "f1_std": 0.062447570140625304,
+      "precision": 0.8636503504235701,
+      "precision_std": 0.08542654993399812,
+      "recall": 0.9047619047619047,
+      "recall_std": 0.07855266731276611,
+      "accuracy": 0.9115000000000001,
+      "accuracy_std": 0.04722552276047349,
+      "folds": 50
+    },
+    {
+      "name": "random_forest",
+      "label": "Random Forest",
+      "roc_auc": 0.955550989010989,
+      "roc_auc_std": 0.04088712752009097,
+      "f1": 0.8770593839360444,
+      "f1_std": 0.06462952358523413,
+      "precision": 0.8485752017160685,
+      "precision_std": 0.08385843223207255,
+      "recall": 0.9145714285714286,
+      "recall_std": 0.08007598432305484,
+      "accuracy": 0.9080000000000001,
+      "accuracy_std": 0.049608467019249855,
+      "folds": 50
+    },
+    {
+      "name": "baseline",
+      "label": "Baseline (always 'does not buy')",
+      "roc_auc": 0.5,
+      "roc_auc_std": 0.0,
+      "f1": 0.0,
+      "f1_std": 0.0,
+      "precision": 0.0,
+      "precision_std": 0.0,
+      "recall": 0.0,
+      "recall_std": 0.0,
+      "accuracy": 0.6425,
+      "accuracy_std": 0.01145643923738961,
+      "folds": 50
+    }
+  ],
+  "with_gender": [
+    {
+      "name": "logistic",
+      "label": "Logistic regression",
+      "roc_auc": 0.9230459340659342,
+      "roc_auc_std": 0.04027491124101075,
+      "f1": 0.7655441394001921,
+      "f1_std": 0.09432801716853287,
+      "precision": 0.846664825886188,
+      "precision_std": 0.10236391604728393,
+      "recall": 0.7124761904761904,
+      "recall_std": 0.13228804550724524,
+      "accuracy": 0.8475,
+      "accuracy_std": 0.05771698190307597,
+      "folds": 50
+    },
+    {
+      "name": "logistic_poly",
+      "label": "Logistic regression, degree 2 features",
+      "roc_auc": 0.9555420512820513,
+      "roc_auc_std": 0.031379835540379104,
+      "f1": 0.8595818788594094,
+      "f1_std": 0.06486136161611583,
+      "precision": 0.8606852454391155,
+      "precision_std": 0.0943444324572761,
+      "recall": 0.8667619047619047,
+      "recall_std": 0.07925097193907454,
+      "accuracy": 0.8985,
+      "accuracy_std": 0.04806506007486104,
+      "folds": 50
+    },
+    {
+      "name": "knn",
+      "label": "K-nearest neighbours (k tuned)",
+      "roc_auc": 0.9538016117216117,
+      "roc_auc_std": 0.03512372869345607,
+      "f1": 0.8574673641050171,
+      "f1_std": 0.05993803500245532,
+      "precision": 0.8799198889345946,
+      "precision_std": 0.08467500363159765,
+      "recall": 0.8444761904761904,
+      "recall_std": 0.08457770246998934,
+      "accuracy": 0.9,
+      "accuracy_std": 0.04272001872658765,
+      "folds": 50
+    },
+    {
+      "name": "svm_rbf",
+      "label": "SVM, RBF kernel",
+      "roc_auc": 0.953381465201465,
+      "roc_auc_std": 0.03647548325000219,
+      "f1": 0.8743093208752275,
+      "f1_std": 0.060534240602806384,
+      "precision": 0.8610833371135227,
+      "precision_std": 0.08183814025492246,
+      "recall": 0.8948571428571428,
+      "recall_std": 0.07783836966036235,
+      "accuracy": 0.9079999999999999,
+      "accuracy_std": 0.04456455991031438,
+      "folds": 50
+    },
+    {
+      "name": "random_forest",
+      "label": "Random Forest",
+      "roc_auc": 0.9542298168498169,
+      "roc_auc_std": 0.03818844495637841,
+      "f1": 0.8757301267318934,
+      "f1_std": 0.05968243076654446,
+      "precision": 0.8474875589666611,
+      "precision_std": 0.08235707575656682,
+      "recall": 0.913142857142857,
+      "recall_std": 0.07503021311324257,
+      "accuracy": 0.907,
+      "accuracy_std": 0.04610856753359402,
+      "folds": 50
+    },
+    {
+      "name": "baseline",
+      "label": "Baseline (always 'does not buy')",
+      "roc_auc": 0.5,
+      "roc_auc_std": 0.0,
+      "f1": 0.0,
+      "f1_std": 0.0,
+      "precision": 0.0,
+      "precision_std": 0.0,
+      "recall": 0.0,
+      "recall_std": 0.0,
+      "accuracy": 0.6425,
+      "accuracy_std": 0.01145643923738961,
+      "folds": 50
+    }
+  ]
+}
