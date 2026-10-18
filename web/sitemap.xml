@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ads.miracdeprem.com/</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://ads.miracdeprem.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ads.miracdeprem.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ads.miracdeprem.com/"/>
+    <loc>https://conversion.miracdeprem.com/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://conversion.miracdeprem.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://conversion.miracdeprem.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://conversion.miracdeprem.com/"/>
   </url>
   <url>
-    <loc>https://ads.miracdeprem.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://ads.miracdeprem.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ads.miracdeprem.com/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ads.miracdeprem.com/"/>
+    <loc>https://conversion.miracdeprem.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://conversion.miracdeprem.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://conversion.miracdeprem.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://conversion.miracdeprem.com/"/>
   </url>
   <url>
-    <loc>https://ads.miracdeprem.com/model.html</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://ads.miracdeprem.com/model.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ads.miracdeprem.com/en/model.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ads.miracdeprem.com/model.html"/>
+    <loc>https://conversion.miracdeprem.com/model</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://conversion.miracdeprem.com/model"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://conversion.miracdeprem.com/en/model"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://conversion.miracdeprem.com/model"/>
   </url>
   <url>
-    <loc>https://ads.miracdeprem.com/en/model.html</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://ads.miracdeprem.com/model.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ads.miracdeprem.com/en/model.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ads.miracdeprem.com/model.html"/>
+    <loc>https://conversion.miracdeprem.com/en/model</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://conversion.miracdeprem.com/model"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://conversion.miracdeprem.com/en/model"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://conversion.miracdeprem.com/model"/>
   </url>
 </urlset>

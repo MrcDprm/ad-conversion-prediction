@@ -8,15 +8,15 @@ import { MESSAGES } from "../web/src/messages.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const WEB = join(ROOT, "web");
-const SITE = "https://ads.miracdeprem.com";
+const SITE = "https://conversion.miracdeprem.com";
 const AUTHOR = { "@type": "Person", name: "Miraç Deprem", url: "https://www.miracdeprem.com" };
 
 // Sayfa: şablon, Türkçe ve İngilizce adresi, başlık/açıklama anahtarları
 const PAGES = [
-  { template: "index.html", paths: { tr: "/", en: "/en/" }, title: "docTitle", description: "docDescription" },
+  { template: "index.html", paths: { tr: "/", en: "/en" }, title: "docTitle", description: "docDescription" },
   {
     template: "model.html",
-    paths: { tr: "/model.html", en: "/en/model.html" },
+    paths: { tr: "/model", en: "/en/model" },
     title: "modelDocTitle",
     description: "modelDocDescription",
   },
@@ -51,7 +51,7 @@ function jsonLd(page, lang) {
           description: m[page.description],
           inLanguage: lang,
           author: AUTHOR,
-          isPartOf: { "@type": "WebSite", name: m.siteName, url: SITE + page.paths[lang].replace("model.html", "") },
+          isPartOf: { "@type": "WebSite", name: m.siteName, url: SITE + (lang === "tr" ? "/" : "/en") },
         };
   // </script> kapanışı JSON içinde görünemesin
   return JSON.stringify(data).replace(/</g, "\\u003c");
@@ -67,8 +67,8 @@ function render(page, lang) {
     url: SITE + page.paths[lang],
     urlTr: SITE + page.paths.tr,
     urlEn: SITE + page.paths.en,
-    home: lang === "tr" ? "/" : "/en/",
-    model: lang === "tr" ? "/model.html" : "/en/model.html",
+    home: lang === "tr" ? "/" : "/en",
+    model: lang === "tr" ? "/model" : "/en/model",
     other: page.paths[other],
     otherLang: other,
     currentCalculator: page.template === "index.html" ? ' aria-current="page"' : "",
@@ -115,8 +115,10 @@ export function buildAll() {
   const files = {};
   for (const page of PAGES) {
     for (const lang of ["tr", "en"]) {
-      const path = page.paths[lang].endsWith("/") ? `${page.paths[lang]}index.html` : page.paths[lang];
-      files[path.slice(1)] = render(page, lang);
+      // Adresler uzantısız (vercel.json cleanUrls): "/en" → en/index.html, "/model" → model.html
+      const path = page.paths[lang];
+      const file = path === "/" ? "index.html" : page.template === "index.html" ? `${path.slice(1)}/index.html` : `${path.slice(1)}.html`;
+      files[file] = render(page, lang);
     }
   }
   files["sitemap.xml"] = sitemap();

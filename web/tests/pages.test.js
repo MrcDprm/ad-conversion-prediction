@@ -18,7 +18,7 @@ test("every page has its language, canonical address and both alternates", () =>
     if (!path.endsWith(".html")) continue;
     const lang = path.startsWith("en/") ? "en" : "tr";
     assert.match(html, new RegExp(`<html lang="${lang}">`), path);
-    assert.match(html, /<link rel="canonical" href="https:\/\/ads\.miracdeprem\.com\//, path);
+    assert.match(html, /<link rel="canonical" href="https:\/\/conversion\.miracdeprem\.com\//, path);
     assert.match(html, /hreflang="tr"/, path);
     assert.match(html, /hreflang="en"/, path);
     assert.equal(html.match(/<h1[ >]/g)?.length, 1, `${path}: one h1`);
@@ -37,5 +37,5 @@ test("structured data is valid JSON", () => {
 
 test("sitemap lists all four pages", () => {
   assert.equal(files["sitemap.xml"].match(/<loc>/g).length, 4);
-  assert.match(files["robots.txt"], /Sitemap: https:\/\/ads\.miracdeprem\.com\/sitemap\.xml/);
+  assert.match(files["robots.txt"], /Sitemap: https:\/\/conversion\.miracdeprem\.com\/sitemap\.xml/);
 });

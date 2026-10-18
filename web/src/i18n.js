@@ -1,4 +1,4 @@
-// Sayfanın dili adresten gelir: "/" Türkçe, "/en/" İngilizce (<html lang>).
+// Sayfanın dili adresten gelir: "/" Türkçe, "/en" İngilizce (<html lang>).
 // Sabit metinler sayfaya üretim sırasında yazılır; burada sadece JS'in değiştirdiği metinler var.
 import { MESSAGES } from "./messages.js";
 
