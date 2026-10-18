@@ -3,7 +3,7 @@ import { formatNumber, getLang, t } from "./i18n.js";
 import { createMap, drawRoc } from "./map.js";
 import { confusionAt, rocCurve } from "./metrics.js";
 import { $, initPage, loadJson } from "./page.js";
-import { interpolate, outsideData, parseAge, parseSalary } from "./predict.js";
+import { HARD_LIMITS, interpolate, outsideData, parseAge, parseSalary } from "./predict.js";
 
 const ERROR_KEYS = { empty: "errEmpty", notNumber: "errNotNumber", tooSmall: "errTooSmall", tooLarge: "errTooLarge" };
 // Türkçede yüzde işareti önde (%73), İngilizcede sonda (73%)
@@ -53,7 +53,10 @@ async function main() {
     const age = parseAge($("age").value);
     const salary = parseSalary($("salary").value);
     for (const [field, result] of [["age", age], ["salary", salary]]) {
-      $(`${field}-error`).textContent = result.error ? t(ERROR_KEYS[result.error]) : "";
+      const limits = HARD_LIMITS[field];
+      $(`${field}-error`).textContent = result.error
+        ? t(ERROR_KEYS[result.error], { min: formatNumber(limits.min), max: formatNumber(limits.max) })
+        : "";
       $(field).toggleAttribute("aria-invalid", Boolean(result.error));
     }
     return age.error || salary.error ? null : { age: age.value, salary: salary.value };
@@ -65,7 +68,8 @@ async function main() {
     const warning = $("result-warning");
     if (state.you) {
       const p = interpolate(grid, grid.models[state.model], state.you.age, state.you.salary);
-      $("result-value").textContent = percent(p);
+      // Yuvarlanınca %0 ya da %100 kesinlik gibi okunur; model asla bu kadar emin değil
+      $("result-value").textContent = p < 0.005 ? t("below1") : p > 0.995 ? t("above99") : percent(p);
       $("result-decision").textContent = t(p >= state.threshold ? "decisionShow" : "decisionSkip");
       warning.textContent = t("outsideData", {
         ageMin: formatNumber(range.age[0]),
