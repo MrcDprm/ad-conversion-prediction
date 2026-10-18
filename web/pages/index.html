@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="{{lang}}">
+  <head>
+{{> head}}
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  <body>
+{{> header}}
+    <main>
+      <section class="lead-in">
+        <h1>{{t:heading}}</h1>
+        <p class="intro">{{t:intro}}</p>
+      </section>
+
+      <section class="calc" aria-label="{{t:resultLabel}}">
+        <div class="calc-inputs">
+          <div class="field-group">
+            <label class="field-label" for="age">{{t:ageLabel}}</label>
+            <input class="field" id="age" type="text" inputmode="numeric" autocomplete="off" value="42" aria-describedby="age-hint age-error" />
+            <p class="hint" id="age-hint">{{t:ageHint}}</p>
+            <p class="error" id="age-error" role="alert"></p>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="salary">{{t:salaryLabel}}</label>
+            <input class="field" id="salary" type="text" inputmode="numeric" autocomplete="off" value="85000" aria-describedby="salary-hint salary-error" />
+            <p class="hint" id="salary-hint">{{t:salaryHint}}</p>
+            <p class="error" id="salary-error" role="alert"></p>
+          </div>
+
+          <div class="result" aria-live="polite">
+            <p class="result-label">{{t:resultLabel}}</p>
+            <p class="result-value" id="result-value">–</p>
+            <p class="result-decision" id="result-decision"></p>
+            <p class="warning" id="result-warning" hidden></p>
+          </div>
+        </div>
+
+        <figure class="map">
+          <fieldset class="picker">
+            <legend>{{t:modelPicker}}</legend>
+            <div class="picker-options" id="model-picker"></div>
+          </fieldset>
+          <svg id="map" role="img" aria-label="{{t:mapLabel}}"></svg>
+          <figcaption class="legend">
+            <span class="legend-item"><span class="key key-dot" aria-hidden="true"></span>{{t:legendProbability}}</span>
+            <span class="legend-item"><span class="key key-bought" aria-hidden="true"></span>{{t:legendBought}}</span>
+            <span class="legend-item"><span class="key key-person" aria-hidden="true"></span>{{t:legendNotBought}}</span>
+            <span class="legend-item"><span class="key key-you" aria-hidden="true"></span>{{t:legendYou}}</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="threshold" aria-labelledby="threshold-title">
+        <div class="threshold-head">
+          <h2 id="threshold-title">{{t:thresholdTitle}}</h2>
+          <p>{{t:thresholdIntro}}</p>
+          <div class="slider">
+            <label for="threshold">{{t:thresholdLabel}}</label>
+            <input id="threshold" type="range" min="0.05" max="0.95" step="0.01" value="0.5" />
+            <output id="threshold-value" for="threshold">%50</output>
+          </div>
+        </div>
+
+        <div class="threshold-body">
+          <table class="matrix" aria-label="{{t:matrixLabel}}">
+            <tbody>
+              <tr>
+                <td class="cell cell-tp"><span class="cell-count" id="cell-tp">–</span><span class="cell-name">{{t:cellTp}}</span><span class="cell-note">{{t:cellTpNote}}</span></td>
+                <td class="cell cell-fp"><span class="cell-count" id="cell-fp">–</span><span class="cell-name">{{t:cellFp}}</span><span class="cell-note">{{t:cellFpNote}}</span></td>
+              </tr>
+              <tr>
+                <td class="cell cell-fn"><span class="cell-count" id="cell-fn">–</span><span class="cell-name">{{t:cellFn}}</span><span class="cell-note">{{t:cellFnNote}}</span></td>
+                <td class="cell cell-tn"><span class="cell-count" id="cell-tn">–</span><span class="cell-name">{{t:cellTn}}</span><span class="cell-note">{{t:cellTnNote}}</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="stats">
+            <dl>
+              <div><dt>{{t:precision}}</dt><dd id="stat-precision">–</dd><dd class="stat-note">{{t:precisionNote}}</dd></div>
+              <div><dt>{{t:recall}}</dt><dd id="stat-recall">–</dd><dd class="stat-note">{{t:recallNote}}</dd></div>
+              <div><dt>{{t:f1}}</dt><dd id="stat-f1">–</dd></div>
+            </dl>
+            <p class="summary" id="summary"></p>
+          </div>
+
+          <figure class="roc-figure">
+            <figcaption>{{t:rocTitle}} <span id="roc-auc"></span></figcaption>
+            <svg id="roc" role="img" aria-label="{{t:rocLabel}}"></svg>
+          </figure>
+        </div>
+        <p class="note">{{t:oofNote}}</p>
+      </section>
+
+      <section class="notes">
+        <div>
+          <h2>{{t:howTitle}}</h2>
+          <p id="how1"></p>
+          <p>{{t:how2}}</p>
+          <p><a href="{{model}}">{{t:howLink}}</a></p>
+        </div>
+        <div>
+          <h2>{{t:dataTitle}}</h2>
+          <p>{{t:data1}}</p>
+          <p>{{t:data2}}</p>
+          <p class="privacy">{{t:data3}}</p>
+        </div>
+      </section>
+    </main>
+
+{{> footer}}
+  </body>
+</html>
