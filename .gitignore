@@ -1,18 +1,28 @@
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
+*.py[cod]
 .venv/
-env.bak/
-venv.bak/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data and model files (models are exported as JSON)
+*.db
+*.pkl
+*.joblib
+
+# Node / Vercel
+node_modules/
+.vercel/
+
+# Secrets
 .env
+.env.*
+!.env.example
 
-# Streamlit
-.streamlit/
-predictions.db
-
-# VSCode IDE
+# Editor / OS
 .vscode/
+.idea/
+Thumbs.db
+.DS_Store
