@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ads.miracdeprem.com/sitemap.xml
+Sitemap: https://conversion.miracdeprem.com/sitemap.xml

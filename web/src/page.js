@@ -5,7 +5,7 @@ import { currentTheme, initTheme, toggleTheme } from "./theme.js";
 export const $ = (id) => document.getElementById(id);
 
 export async function loadJson(name) {
-  // Mutlak yol: /en/ altındaki sayfalar da aynı dosyaları okur
+  // Mutlak yol: /en altındaki sayfalar da aynı dosyaları okur
   const response = await fetch(`/${name}`);
   if (!response.ok) throw new Error(`${name}: ${response.status}`);
   return response.json();

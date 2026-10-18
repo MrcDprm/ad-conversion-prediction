@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "trailingSlash": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
@@ -23,7 +24,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://ads.miracdeprem.com"
+          "value": "https://conversion.miracdeprem.com"
         }
       ]
     },
