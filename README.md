@@ -1,89 +1,54 @@
-# Social Network Ads Classification - Machine Learning Project
+English | [Türkçe](README.tr.md)
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![Streamlit](https://img.shields.io/badge/Streamlit-Framework-FF4B4B)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine_Learning-F7931E)
-![SQLite](https://img.shields.io/badge/SQLite-Database-003B57)
-![Build](https://img.shields.io/badge/Status-Success-brightgreen)
+# Ad Conversion Prediction
 
-Bu proje, **Bilgisayar Mühendisliği 4. Sınıf "Makine Öğrenmesi"** dersi kapsamında geliştirilmiş kapsamlı ve interaktif bir makine öğrenmesi uygulamasıdır. Projenin temel amacı, kullanıcıların sosyal medya reklam verilerini kullanarak farklı sınıflandırma algoritmalarını eğitmesi, performanslarını değerlendirmesi ve interaktif bir web arayüzü üzerinden canlı tahminler yapabilmesini sağlamaktır.
+Predict whether someone who sees an ad will buy the product, from their age and estimated salary. A Python pipeline compares classification models with repeated cross-validation; a small website shows each model's decision map, lets you move the decision threshold and runs in the browser.
 
-## 🚀 Proje Hakkında
+> **Status:** v1.0 in progress. This README is the project plan and will be completed before release.
+>
+> **About the data:** a widely used teaching dataset of 400 people (`Social_Network_Ads.csv`). It is not data from a real campaign, so the results show how the methods work, not how real customers behave.
 
-Bu uygulama, makine öğrenmesi süreçlerini son kullanıcı için ulaşılabilir kılar. Kullanılan temel teknolojiler ve sağlanan özellikler sayesinde veri ön işleme, model optimizasyonu (GridSearchCV, K-Fold Cross Validation), performans karşılaştırması ve veritabanı kayıt işlemleri dinamik olarak yapılabilmektedir.
+## Features
 
-Arayüz tamamen **Streamlit** üzerinden geliştirilmiş olup, profesyonel bir deneyim sunması amacıyla uluslararasılaştırma (i18n), karanlık/aydınlık tema desteği, ve gelişmiş veri görselleştirme tekniklerini barındırmaktadır.
+### Training pipeline (Python)
+- Data validation: schema, value ranges and categories are checked before training.
+- Model comparison with repeated stratified 10-fold cross-validation: logistic regression, logistic regression with polynomial features, KNN, SVM (RBF), Random Forest and a baseline that always predicts "does not buy".
+- Metrics as mean ± standard deviation: ROC AUC, F1, precision, recall and accuracy; accuracy is shown next to the baseline because it is misleading on imbalanced data.
+- Gender is left out of the model: it adds no information here, and using it to target ads raises a fairness question. The comparison with and without it is part of the report.
+- Export to JSON: each model's probability on a 100×100 age × salary grid, its cross-validated scores and its out-of-fold predictions for the threshold view.
+- Unit tests with pytest.
 
-### ✨ Temel Özellikler
+### Website
+- Decision map: the probability of buying over age and salary for each model, the 400 people in the data and your own point.
+- Prediction for an age and salary you enter, with a warning outside the range of the data.
+- Threshold slider ("who should see the ad?"): precision, recall, confusion matrix and ROC curve update as you move it.
+- Model page: comparison table, why accuracy misleads, the gender decision and a model card (data source, limitations, intended use).
+- Turkish / English, dark / light theme. Nothing you enter is sent or stored.
 
-- **Çoklu Model Desteği:** K-En Yakın Komşu (KNN), Destek Vektör Makineleri (SVM), Lojistik Regresyon ve Çok Katmanlı Algılayıcı (MLP - Yapay Sinir Ağları) modelleri.
-- **Model Optimizasyonu:** KNN modeli için GridSearchCV algoritmaları ve K-Fold Cross Validation ile dinamik hiperparametre optimizasyonu.
-- **İnteraktif Veri Görselleştirme:** Çapraz tablo (Confusion Matrix), ısı haritaları (Heatmaps), Dağılım grafikleri ve dinamik çubuk grafikler (Plotly & Seaborn).
-- **SQLite Veritabanı Entegrasyonu:** Tüm tahmin sonuçlarının geçmişi ve kullanıcı logları yerel `predictions.db` SQLite veritabanına otomatik olarak kaydedilir.
-- **Çift Dil Desteği (i18n):** Uygulama anlık olarak Türkçe ve İngilizce dil seçenekleri arasında pürüzsüz (seamless) bir şekilde geçiş yapabilir.
-- **Dinamik UI/UX:** "Eğitim ve Tahmin" (Training & Prediction) sayfası ile "Model Karşılaştırma" (Model Comparison) sayfası arasında geçiş yapabilen "Multi-page" (çoklu sayfa) mimarisi.
+## Dataset
 
-## 🛠 Kullanılan Teknolojiler
+400 people: gender, age, estimated salary and whether they bought the advertised product (143 bought, 257 did not). A common teaching dataset; its original source is not documented.
 
-- **Programlama Dili:** Python 3.8+
-- **Veri Bilimi ve ML:** `scikit-learn`, `pandas`, `numpy`
-- **Web Arayüzü (Frontend/Backend):** `streamlit`
-- **Görselleştirme:** `matplotlib`, `seaborn`, `plotly`
-- **Veritabanı:** `sqlite3`
+## Screenshots
 
-## 📂 Proje Dosya Dizini
+_Coming soon._
 
-```
-social-network-ads-classification/
-│
-├── app.py                   # Ana Streamlit uygulama dosyası, tüm ML ve UI mantığı
-├── translations.py          # i18n dil dosyaları (Türkçe / İngilizce Sözlük)
-├── theme.py                 # Tema motoru (Açık ve Koyu tema enjeksiyonu)
-├── requirements.txt         # Proje bağımlılıkları ve modüller
-├── predictions.db           # SQLite veritabanı dosyası (Dinamik oluşturulur)
-└── data/
-    └── Social_Network_Ads.csv # Kullanılan örnek makine öğrenmesi veri seti
-```
+## Tech Stack
 
-## ⚙️ Kurulum ve Çalıştırma
+- Python, pandas, NumPy, scikit-learn, pytest
+- HTML, CSS, JavaScript (no framework, no build step), `node --test`
+- Vercel
 
-Projenin yerel bilgisayarınızda çalıştırılabilmesi için aşağıdaki adımları sırasıyla uygulayınız:
+## Installation
 
-1. **Repoyu Klonlayın:**
-   ```bash
-   git clone https://github.com/MrcDprm/social-network-ads-classification.git
-   cd social-network-ads-classification
-   ```
+_Coming soon._
 
-2. **Gerekli Kütüphaneleri Yükleyin:**
-   Sanal ortam (virtual environment) kullanılması önerilir.
-   ```bash
-   pip install -r requirements.txt
-   ```
+## What I Learned
 
-3. **Uygulamayı Başlatın:**
-   ```bash
-   streamlit run app.py
-   ```
-   *Bu komut çalıştırıldıktan sonra uygulama standart tarayıcınızda veya `http://localhost:8501` adresinde açılacaktır.*
+_Coming soon._
 
-## 🧠 Makine Öğrenmesi Süreçleri ve Modeller
+## Future Plans
 
-Projeye entegre edilen modeller ve işleyişleri:
-1. **KNN (K-Nearest Neighbors):** Komşuluk sayısına göre sınıflandırma yapar. Arayüzden Cross-Validation ve ağırlıklandırma (uniform/distance) metrikleri GridSearch ile entegre bir şekilde manipüle edilebilir.
-2. **SVM (Support Vector Machines):** Doğrusal olmayan ayrımlar için RBF (Radial Basis Function) çekirdeği ile verileri ayırmaktır.
-3. **Logistic Regression:** İhtimal tabanlı temel sınıflandırma algoritmasıdır.
-4. **MLP Classifier:** Multi-layer Perceptron, karmaşık desenleri öğrenen yapay sinir ağı sınıflandırıcısıdır.
-
-**Değerlendirme Metrikleri:**
-- Accuracy (Doğruluk)
-- Precision (Hassasiyet)
-- Recall (Duyarlılık)
-- F1-Score
-
-## 👨‍💻 Geliştirici
-
-Bu proje, makine öğrenmesi konseptlerinin pekiştirilmesi ve pratiğe dönüştürülmesi amacıyla geliştirilmiştir. Modern yazılım prensiplerini ve pratiklerini benimseyerek akademik bilgiyi harmanlanmıştır.
-
----
-*Bilgisayar Mühendisliği 4. Sınıf Makine Öğrenmesi Dersi Projesi*
+- Upload your own CSV with two numeric columns and a yes/no target.
+- Probability calibration plot.
+- More datasets.
