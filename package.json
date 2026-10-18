@@ -2,6 +2,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:pages": "node scripts/build-pages.mjs",
     "test": "node --test \"web/tests/*.test.js\""
   }
 }

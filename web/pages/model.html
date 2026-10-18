@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="{{lang}}">
+  <head>
+{{> head}}
+    <script type="module" src="/src/model-page.js"></script>
+  </head>
+  <body>
+{{> header}}
+    <main class="model-page">
+      <section class="lead-in">
+        <h1>{{t:modelHeading}}</h1>
+        <p class="intro">{{t:modelIntro}}</p>
+        <p class="error" id="load-error" role="alert"></p>
+      </section>
+
+      <div class="table-scroll">
+        <table class="results">
+          <caption>{{t:tableCaption}}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{{t:colModel}}</th>
+              <th scope="col" class="num">{{t:colAuc}}</th>
+              <th scope="col" class="num">{{t:colF1}}</th>
+              <th scope="col" class="num wide">{{t:colPrecision}}</th>
+              <th scope="col" class="num wide">{{t:colRecall}}</th>
+              <th scope="col" class="num">{{t:colAccuracy}}</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+
+      <section class="model-section split">
+        <div>
+          <h2>{{t:reasonTitle}}</h2>
+          <p id="reason"></p>
+          <h2>{{t:accuracyTitle}}</h2>
+          <p id="accuracy-text"></p>
+        </div>
+        <figure class="roc-figure">
+          <figcaption>{{t:rocAllTitle}}</figcaption>
+          <svg id="roc-all" role="img" aria-label="{{t:rocAllLabel}}"></svg>
+          <ul class="roc-legend" id="roc-legend"></ul>
+        </figure>
+      </section>
+
+      <section class="model-section">
+        <h2>{{t:genderTitle}}</h2>
+        <p>{{t:genderText}}</p>
+        <div class="table-scroll">
+          <table class="results compact">
+            <caption>{{t:genderCaption}}</caption>
+            <thead>
+              <tr>
+                <th scope="col">{{t:colModel}}</th>
+                <th scope="col" class="num">{{t:colWithout}}</th>
+                <th scope="col" class="num">{{t:colWith}}</th>
+                <th scope="col" class="num">{{t:colDiff}}</th>
+              </tr>
+            </thead>
+            <tbody id="gender-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="model-section">
+        <h2>{{t:cardTitle}}</h2>
+        <dl class="card" id="model-card"></dl>
+      </section>
+    </main>
+
+{{> footer}}
+  </body>
+</html>

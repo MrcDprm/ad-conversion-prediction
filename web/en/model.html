@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Model comparison: ad conversion prediction</title>
+    <meta name="description" content="Five classification models for ad conversion prediction compared with repeated cross-validation, why accuracy misleads, and the gender decision." />
+    <link rel="canonical" href="https://ads.miracdeprem.com/en/model.html" />
+    <link rel="alternate" hreflang="tr" href="https://ads.miracdeprem.com/model.html" />
+    <link rel="alternate" hreflang="en" href="https://ads.miracdeprem.com/en/model.html" />
+    <link rel="alternate" hreflang="x-default" href="https://ads.miracdeprem.com/model.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ad conversion" />
+    <meta property="og:title" content="Model comparison: ad conversion prediction" />
+    <meta property="og:description" content="Five classification models for ad conversion prediction compared with repeated cross-validation, why accuracy misleads, and the gender decision." />
+    <meta property="og:url" content="https://ads.miracdeprem.com/en/model.html" />
+    <meta property="og:image" content="https://ads.miracdeprem.com/og-image-en.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Decision map drawn with halftone dots and a prediction panel with age and salary" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#e8e8e2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/src/theme-init.js"></script>
+    <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How the model was chosen","url":"https://ads.miracdeprem.com/en/model.html","description":"Five classification models for ad conversion prediction compared with repeated cross-validation, why accuracy misleads, and the gender decision.","inLanguage":"en","author":{"@type":"Person","name":"Miraç Deprem","url":"https://www.miracdeprem.com"},"isPartOf":{"@type":"WebSite","name":"Ad conversion","url":"https://ads.miracdeprem.com/en/"}}</script>
+    <script type="module" src="/src/model-page.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-name" href="/en/">Ad conversion</a>
+      <nav class="site-nav">
+        <a href="/en/">Calculator</a>
+        <a href="/en/model.html" aria-current="page">Model</a>
+        <a class="text-button" href="/model.html" hreflang="tr" lang="tr" aria-label="Türkçeye geç">Türkçe</a>
+        <button type="button" class="icon-button" id="theme-toggle" aria-label="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="icon-moon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
+            <g class="icon-sun">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+            </g>
+          </svg>
+        </button>
+      </nav>
+    </header>
+    <main class="model-page">
+      <section class="lead-in">
+        <h1>How the model was chosen</h1>
+        <p class="intro">Five models and a baseline that tells everyone &quot;won't buy&quot; took the same test: the data was split into 10 parts with the share of buyers kept, each part was held out once, and this was repeated 5 times. The table shows the mean over the 50 tests.</p>
+        <p class="error" id="load-error" role="alert"></p>
+      </section>
+
+      <div class="table-scroll">
+        <table class="results">
+          <caption>Cross-validation results; ± standard deviation for ROC AUC.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              <th scope="col" class="num">ROC AUC</th>
+              <th scope="col" class="num">F1</th>
+              <th scope="col" class="num wide">Precision</th>
+              <th scope="col" class="num wide">Recall</th>
+              <th scope="col" class="num">Accuracy</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+
+      <section class="model-section split">
+        <div>
+          <h2>Why this model</h2>
+          <p id="reason"></p>
+          <h2>Why accuracy misleads</h2>
+          <p id="accuracy-text"></p>
+        </div>
+        <figure class="roc-figure">
+          <figcaption>ROC curves of all models</figcaption>
+          <svg id="roc-all" role="img" aria-label="ROC curves of the five models from out-of-fold predictions."></svg>
+          <ul class="roc-legend" id="roc-legend"></ul>
+        </figure>
+      </section>
+
+      <section class="model-section">
+        <h2>Why gender is not in the model</h2>
+        <p>We also tested the same models with gender added. ROC AUC did not rise meaningfully for any model. Gender was left out so the model does not use information that adds nothing and that could lead to discrimination in ad targeting.</p>
+        <div class="table-scroll">
+          <table class="results compact">
+            <caption>ROC AUC without and with gender.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Model</th>
+                <th scope="col" class="num">Without gender</th>
+                <th scope="col" class="num">With gender</th>
+                <th scope="col" class="num">Difference</th>
+              </tr>
+            </thead>
+            <tbody id="gender-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="model-section">
+        <h2>Model card</h2>
+        <dl class="card" id="model-card"></dl>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-projects" aria-label="My projects">
+        <a href="https://tictactoe.miracdeprem.com">Tic-Tac-Toe</a>
+        <a href="https://hangman.miracdeprem.com">Hangman</a>
+        <a href="https://quiz.miracdeprem.com">Quiz App</a>
+        <a href="https://weather.miracdeprem.com">Weather App</a>
+        <a href="https://sahaf.miracdeprem.com">Sahaf</a>
+        <a href="https://crypto.miracdeprem.com">Crypto Toolkit</a>
+        <a href="https://kvkk.miracdeprem.com">KVKK Assistant</a>
+        <a href="https://seans.miracdeprem.com">Seans</a>
+        <a href="https://spygame.miracdeprem.com">Casus</a>
+        <a href="https://zarf.miracdeprem.com">Zarf</a>
+        <a href="https://brain.miracdeprem.com">Brain Weight</a>
+        <a href="https://ads.miracdeprem.com" aria-current="page">Ad Conversion</a>
+      </nav>
+      <p class="footer-meta">
+        <span>© 2026 Miraç Deprem</span> ·
+        <a href="https://www.miracdeprem.com/en">Portfolio</a> ·
+        <a href="https://github.com/MrcDprm/ad-conversion-prediction">Source code</a>
+      </p>
+    </footer>
+  </body>
+</html>

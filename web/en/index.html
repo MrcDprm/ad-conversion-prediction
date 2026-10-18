@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ad conversion prediction: purchase probability from age and salary</title>
+    <meta name="description" content="Predict how likely someone who sees an ad is to buy, from their age and salary; see the decision map of five classification models and move the threshold to choose who sees the ad." />
+    <link rel="canonical" href="https://ads.miracdeprem.com/en/" />
+    <link rel="alternate" hreflang="tr" href="https://ads.miracdeprem.com/" />
+    <link rel="alternate" hreflang="en" href="https://ads.miracdeprem.com/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://ads.miracdeprem.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ad conversion" />
+    <meta property="og:title" content="Ad conversion prediction: purchase probability from age and salary" />
+    <meta property="og:description" content="Predict how likely someone who sees an ad is to buy, from their age and salary; see the decision map of five classification models and move the threshold to choose who sees the ad." />
+    <meta property="og:url" content="https://ads.miracdeprem.com/en/" />
+    <meta property="og:image" content="https://ads.miracdeprem.com/og-image-en.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Decision map drawn with halftone dots and a prediction panel with age and salary" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="tr_TR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#e8e8e2" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script src="/src/theme-init.js"></script>
+    <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Ad conversion","url":"https://ads.miracdeprem.com/en/","description":"Predict how likely someone who sees an ad is to buy, from their age and salary; see the decision map of five classification models and move the threshold to choose who sees the ad.","inLanguage":"en","applicationCategory":"EducationalApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Miraç Deprem","url":"https://www.miracdeprem.com"}}</script>
+    <script type="module" src="/src/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-name" href="/en/">Ad conversion</a>
+      <nav class="site-nav">
+        <a href="/en/" aria-current="page">Calculator</a>
+        <a href="/en/model.html">Model</a>
+        <a class="text-button" href="/" hreflang="tr" lang="tr" aria-label="Türkçeye geç">Türkçe</a>
+        <button type="button" class="icon-button" id="theme-toggle" aria-label="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="icon-moon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />
+            <g class="icon-sun">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+            </g>
+          </svg>
+        </button>
+      </nav>
+    </header>
+    <main>
+      <section class="lead-in">
+        <h1>Will someone who sees the ad buy?</h1>
+        <p class="intro">Enter an age and an estimated salary. The model predicts how likely this person is to buy the advertised product, from what it learned on a teaching dataset of 400 people.</p>
+      </section>
+
+      <section class="calc" aria-label="Purchase probability">
+        <div class="calc-inputs">
+          <div class="field-group">
+            <label class="field-label" for="age">Age</label>
+            <input class="field" id="age" type="text" inputmode="numeric" autocomplete="off" value="42" aria-describedby="age-hint age-error" />
+            <p class="hint" id="age-hint">In years, for example 42</p>
+            <p class="error" id="age-error" role="alert"></p>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="salary">Estimated yearly salary</label>
+            <input class="field" id="salary" type="text" inputmode="numeric" autocomplete="off" value="85000" aria-describedby="salary-hint salary-error" />
+            <p class="hint" id="salary-hint">For example 85,000</p>
+            <p class="error" id="salary-error" role="alert"></p>
+          </div>
+
+          <div class="result" aria-live="polite">
+            <p class="result-label">Purchase probability</p>
+            <p class="result-value" id="result-value">–</p>
+            <p class="result-decision" id="result-decision"></p>
+            <p class="warning" id="result-warning" hidden></p>
+          </div>
+        </div>
+
+        <figure class="map">
+          <fieldset class="picker">
+            <legend>Model</legend>
+            <div class="picker-options" id="model-picker"></div>
+          </fieldset>
+          <svg id="map" role="img" aria-label="Decision map: purchase probability by age and salary; larger dots mean a higher probability."></svg>
+          <figcaption class="legend">
+            <span class="legend-item"><span class="key key-dot" aria-hidden="true"></span>Dot size: purchase probability</span>
+            <span class="legend-item"><span class="key key-bought" aria-hidden="true"></span>Person in the data who bought</span>
+            <span class="legend-item"><span class="key key-person" aria-hidden="true"></span>Person in the data who did not</span>
+            <span class="legend-item"><span class="key key-you" aria-hidden="true"></span>The person you entered</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="threshold" aria-labelledby="threshold-title">
+        <div class="threshold-head">
+          <h2 id="threshold-title">Who should see the ad?</h2>
+          <p>People with a probability above the threshold see the ad. Lower it and you reach more buyers, but more showings are wasted.</p>
+          <div class="slider">
+            <label for="threshold">Threshold</label>
+            <input id="threshold" type="range" min="0.05" max="0.95" step="0.01" value="0.5" />
+            <output id="threshold-value" for="threshold">%50</output>
+          </div>
+        </div>
+
+        <div class="threshold-body">
+          <table class="matrix" aria-label="Confusion matrix">
+            <tbody>
+              <tr>
+                <td class="cell cell-tp"><span class="cell-count" id="cell-tp">–</span><span class="cell-name">Right target</span><span class="cell-note">Shown, bought</span></td>
+                <td class="cell cell-fp"><span class="cell-count" id="cell-fp">–</span><span class="cell-name">Wasted showing</span><span class="cell-note">Shown, did not buy</span></td>
+              </tr>
+              <tr>
+                <td class="cell cell-fn"><span class="cell-count" id="cell-fn">–</span><span class="cell-name">Missed buyer</span><span class="cell-note">Not shown, would have bought</span></td>
+                <td class="cell cell-tn"><span class="cell-count" id="cell-tn">–</span><span class="cell-name">Right skip</span><span class="cell-note">Not shown, would not have bought</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="stats">
+            <dl>
+              <div><dt>Precision</dt><dd id="stat-precision">–</dd><dd class="stat-note">How many who saw the ad bought</dd></div>
+              <div><dt>Recall</dt><dd id="stat-recall">–</dd><dd class="stat-note">How many buyers were reached</dd></div>
+              <div><dt>F1</dt><dd id="stat-f1">–</dd></div>
+            </dl>
+            <p class="summary" id="summary"></p>
+          </div>
+
+          <figure class="roc-figure">
+            <figcaption>ROC curve <span id="roc-auc"></span></figcaption>
+            <svg id="roc" role="img" aria-label="ROC curve; the dot is where the chosen threshold sits."></svg>
+          </figure>
+        </div>
+        <p class="note">These numbers come from predictions made by a model that never saw that person in training (10-fold cross-validation).</p>
+      </section>
+
+      <section class="notes">
+        <div>
+          <h2>How it works</h2>
+          <p id="how1"></p>
+          <p>Plain logistic regression can only draw a straight boundary and falls behind. Adding the squares and the product of age and salary bends the boundary, and the simple model matches the complex ones. Switch between models on the map to see the difference.</p>
+          <p><a href="/en/model.html">See the model comparison</a></p>
+        </div>
+        <div>
+          <h2>Data and limits</h2>
+          <p>The data is a teaching dataset of 400 people widely used in machine learning courses: gender, age, estimated salary and whether they bought the advertised product. It is not data from a real campaign; the results show how the methods work.</p>
+          <p>Gender is left out of the model: it adds nothing to the prediction here, and using it to target ads raises a fairness question.</p>
+          <p class="privacy">The age and salary you enter are not sent or stored anywhere; the prediction runs in your browser.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <nav class="footer-projects" aria-label="My projects">
+        <a href="https://tictactoe.miracdeprem.com">Tic-Tac-Toe</a>
+        <a href="https://hangman.miracdeprem.com">Hangman</a>
+        <a href="https://quiz.miracdeprem.com">Quiz App</a>
+        <a href="https://weather.miracdeprem.com">Weather App</a>
+        <a href="https://sahaf.miracdeprem.com">Sahaf</a>
+        <a href="https://crypto.miracdeprem.com">Crypto Toolkit</a>
+        <a href="https://kvkk.miracdeprem.com">KVKK Assistant</a>
+        <a href="https://seans.miracdeprem.com">Seans</a>
+        <a href="https://spygame.miracdeprem.com">Casus</a>
+        <a href="https://zarf.miracdeprem.com">Zarf</a>
+        <a href="https://brain.miracdeprem.com">Brain Weight</a>
+        <a href="https://ads.miracdeprem.com" aria-current="page">Ad Conversion</a>
+      </nav>
+      <p class="footer-meta">
+        <span>© 2026 Miraç Deprem</span> ·
+        <a href="https://www.miracdeprem.com/en">Portfolio</a> ·
+        <a href="https://github.com/MrcDprm/ad-conversion-prediction">Source code</a>
+      </p>
+    </footer>
+  </body>
+</html>
