@@ -127,12 +127,6 @@ web/           web sitesi (Vercel bu klasörü yayınlar)
 - Modelleri olasılık ızgarası olarak dışa aktarmak her sınıflandırıcıyı tarayıcıda kullanılabilir yaptı; JavaScript'i scikit-learn'e karşı test etmek ikisini uyumlu tuttu.
 - `ads.` ile başlayan bir alt alan adı reklam engelleyicilere takılıyor, bu yüzden site `conversion.` adresine taşındı: isimlendirmede küçük bir ders.
 
-## Gelecek Planları
-
-- İki sayısal sütun ve evet/hayır hedefi olan kendi CSV dosyanı yükleme.
-- Olasılık kalibrasyonu grafiği.
-- Ek veri setleri.
-
 ## Lisans
 
 [MIT](LICENSE)

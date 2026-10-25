@@ -127,12 +127,6 @@ web/           the website (Vercel serves this folder)
 - Exporting models as probability grids made any classifier usable in the browser, and testing the JavaScript against scikit-learn kept the two in step.
 - A subdomain starting with `ads.` is blocked by ad blockers, so the site moved to `conversion.`: a small lesson in naming.
 
-## Future Plans
-
-- Upload your own CSV with two numeric columns and a yes/no target.
-- Probability calibration plot.
-- More datasets.
-
 ## License
 
 [MIT](LICENSE)
