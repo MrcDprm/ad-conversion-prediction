@@ -119,10 +119,6 @@ export const MESSAGES = {
     cardPerf: "Çapraz doğrulamada ROC AUC {auc}, F1 {f1}, doğruluk {accuracy}.",
     cardLimitsTerm: "Sınırlar",
     cardLimits: "Veri küçük ve kaynağı belirsiz. Yaş {ageMin}–{ageMax} ve maaş {salaryMin}–{salaryMax} dışında tahmin güvenilir değil.",
-    projects: "Projelerim",
-    otherProjects: "Diğer projelerim",
-    portfolio: "Portfolyo",
-    source: "Kaynak kodu",
   },
   en: {
     docTitle: "Ad conversion prediction: purchase probability from age and salary",
@@ -242,9 +238,5 @@ export const MESSAGES = {
     cardPerf: "Cross-validated ROC AUC {auc}, F1 {f1}, accuracy {accuracy}.",
     cardLimitsTerm: "Limits",
     cardLimits: "The data is small and of unclear origin. Predictions outside age {ageMin}–{ageMax} and salary {salaryMin}–{salaryMax} are not reliable.",
-    projects: "My projects",
-    otherProjects: "My other projects",
-    portfolio: "Portfolio",
-    source: "Source code",
   },
 };

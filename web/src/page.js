@@ -23,3 +23,7 @@ export function initPage() {
     updateThemeButton();
   });
 }
+
+// Alt bilgideki yıl sabit yazılmaz; sayfa açılınca o anki yıl gelir
+const footerYear = globalThis.document?.getElementById("footer-year");
+if (footerYear) footerYear.textContent = new Date().getFullYear();
